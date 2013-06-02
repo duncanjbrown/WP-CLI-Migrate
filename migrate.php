@@ -20,11 +20,9 @@ wp plugin activate wp-migrate-db" );
  */
 class WP_Migrate_DB_Command extends WP_CLI_Command {
 
-	/**
-	 * Run a migration
-	 *
-	 * @param array $args
-	 */
+		/**
+		 * @synopsis output_folder output_host filename
+		 */
 	function to( $args = array() ) {
 
 		$wpmdb = new CLI_Migrate( $args );
