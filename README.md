@@ -1,6 +1,4 @@
 WP-CLI-Migrate
 ==============
 
-A database migration command for WP-CLI
-
-Just move it to `src/php/wp-cli/commands/` in your wp-cli directory.
+A database migration command for WP-CLI. Installs like an ordinary plugin.
