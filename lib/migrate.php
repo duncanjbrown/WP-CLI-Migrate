@@ -9,9 +9,9 @@
  */
 class WP_Migrate_DB_Command extends WP_CLI_Command {
 
-		/**
-		 * @synopsis output_folder output_host filename
-		 */
+	/**
+	 * @synopsis output_folder output_host filename
+	 */
 	function to( $args = array() ) {
 
 		$wpmdb = new CLI_Migrate( $args );

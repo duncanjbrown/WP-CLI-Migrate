@@ -10,11 +10,7 @@ Author URI: http://duncanjbrown.com
 function wp_migrate_db_cli_init() {
 
 	if ( !class_exists( 'WP_Migrate_DB' ) ) {
-		if( defined('WP_CLI') && WP_CLI ) {
-			WP_CLI::error( 'WP Migrate DB is not installed, or not activated.' );
-		} else {
-			return;
-		}
+		return;
 	}
 
 	if ( defined('WP_CLI') && WP_CLI ) {
