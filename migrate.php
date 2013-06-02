@@ -1,8 +1,10 @@
 <?php
 
-if( class_exists( 'WP_Migrate_DB' ) ) {
+if( !class_exists( 'WP_CLI_Command' ) )
+	return;
+
+if( class_exists( 'WP_Migrate_DB' ) )
 	WP_CLI::add_command( 'migrate', 'WP_Migrate_DB_Command' );
-} 
 
 /**
  * Run database migrations using the search and replace powers of wp-migrate-db
@@ -36,10 +38,10 @@ class WP_Migrate_DB_Command extends WP_CLI_Command {
 usage: wp migrate to [output folder] [output host] [filename]
 
 For example, to migrate your db to example.com, where the files are stored in /var/www/example.com:
-	wp migrate run /var/www/example.com http://example.com filename.sql
+	wp migrate to /var/www/example.com http://example.com filename.sql
 
 To write to STDOUT pass that as the filename, eg:
-	wp migrate run /var/www/example.com http://example.com STDOUT
+	wp migrate to /var/www/example.com http://example.com STDOUT
 EOB
 	);
 	}
@@ -68,6 +70,15 @@ if( class_exists( 'WP_Migrate_DB' ) ) {
 
 			$this->old_path = ABSPATH;
 			$this->old_url = get_bloginfo( 'url' );
+
+			// WP-Migrate-DB relies on the $_POST global for its settings
+			// so we have to spoof it here. 	
+			$_POST = array(
+				'old_path' => $this->old_path,
+				'new_path' => $this->new_path,
+				'old_url' => $this->old_url,
+				'new_url' => $this->new_url
+			);
 
 			if ( isset( $args[2] ) ) {
 				$this->filename = $args[2];
@@ -118,11 +129,6 @@ if( class_exists( 'WP_Migrate_DB' ) ) {
 		} 
 		
 		function stow($query_line, $replace = true) {
-
-	        if ($replace) {
-	            $query_line = $this->replace_sql_strings($this->old_url, $this->new_url, $query_line);
-	            $query_line = $this->replace_sql_strings($this->old_path, $this->new_path, $query_line);
-	        }
 
 	        if ($this->gzip()) {
 	            if(! @gzwrite($this->fp, $query_line))
