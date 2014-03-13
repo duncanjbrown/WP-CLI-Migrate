@@ -9,10 +9,29 @@
  */
 class WP_Migrate_DB_Command extends WP_CLI_Command {
 
-	/**
-	 * @synopsis output_folder output_host filename
-	 */
-	function to( $args = array() ) {
+    /**
+     * Run database migrations using the search and replace powers of wp-migrate-db.
+     *
+     * ## OPTIONS
+     *
+     * <output_folder>
+     * : Destination folder on new host.
+     *
+     * <output_host>
+     * : Destination url on new host.
+     *
+     * <filename>
+     * : Output filename for SQL dump
+     *   Use STDOUT as filename to write to STDOUT instead.
+     *
+     * ## EXAMPLES
+     *
+     *     wp migrate to /var/www/example.com http://example.com filename.sql
+     *     wp migrate to /var/www/example.com http://example.com STDOUT
+     *
+     * @synopsis <output_folder> <output_host> <filename>
+     */
+	function to( $args , $assoc_args ) {
 
 		$wpmdb = new CLI_Migrate( $args );
 
@@ -30,7 +49,8 @@ class WP_Migrate_DB_Command extends WP_CLI_Command {
 usage: wp migrate to [output folder] [output host] [filename]
 
 For example, to migrate your db to example.com, where the files are stored in /var/www/example.com:
-wp migrate to /var/www/example.com http://example.com filename.sql
+wp migrate to /var/www/example.com http://usage: wp migrate to [output folder] [output host] [filename]
+example.com filename.sql
 
 To write to STDOUT pass that as the filename, eg:
 wp migrate run /var/www/example.com http://example.com STDOUT
