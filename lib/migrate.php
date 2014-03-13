@@ -14,10 +14,10 @@ class WP_Migrate_DB_Command extends WP_CLI_Command {
      *
      * ## OPTIONS
      *
-     * <output_folder>
+     * <outputfolder>
      * : Destination folder on new host.
      *
-     * <output_host>
+     * <outputhost>
      * : Destination url on new host.
      *
      * <filename>
@@ -29,7 +29,7 @@ class WP_Migrate_DB_Command extends WP_CLI_Command {
      *     wp migrate to /var/www/example.com http://example.com filename.sql
      *     wp migrate to /var/www/example.com http://example.com STDOUT
      *
-     * @synopsis <output_folder> <output_host> <filename>
+     * @synopsis <outputfolder> <outputhost> <filename>
      */
 	function to( $args , $assoc_args ) {
 
